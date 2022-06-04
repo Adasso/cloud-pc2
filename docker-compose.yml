@@ -2,11 +2,22 @@ version: '3.4'
 
 services:
   pc2:
+    container_name: pc2
     image: pc2
+    restart: always
     build:
       context: .
       dockerfile: ./Dockerfile
     environment:
-      NODE_ENV: production
+      NODE_ENV: production 
     ports:
-      - 9000:9000
+      - 9000:3000
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+     - ./data:/data/db
+    ports:
+     - 27017:27017
